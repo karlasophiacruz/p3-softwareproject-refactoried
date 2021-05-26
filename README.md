@@ -18,7 +18,7 @@ O objetivo do projeto é construir um sistema de folha de pagamento. O sistema c
 
 ## Long Method
 
-- Em [EmployeeApp](payroll/src/app/EmployeeApp.java), métodos AddEmployee() e ChangeEmployee() muito extensos.
+- Em [EmployeeApp](https://github.com/karlasophiacruz/p3-softwareproject/blob/main/payroll/src/app/EmployeeApp.java), métodos AddEmployee() e ChangeEmployee() muito extensos.
 -  Em [AuxApp](payroll/src/app/AuxApp.java), método ChangeSyndicalst() muito extenso.
 -  Em [PaymentApp](payroll/src/app/PaymentApp.java), método RunPayroll() muito extenso.
 -  Em [Employee](payroll/src/model/employee/Employee.java), método toString() com decisões lógicas para comportamento.
