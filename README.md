@@ -1,4 +1,4 @@
-## Sistema de Folha de Pagamento
+# Sistema de Folha de Pagamento
 
 O objetivo do projeto é construir um sistema de folha de pagamento. O sistema consiste do gerenciamento de pagamentos dos empregados de uma empresa. Além disso, o sistema deve gerenciar os dados destes empregados, a exemplo os cartões de pontos. Empregados devem receber o salário no momento correto, usando o método que eles preferem, obedecendo várias taxas e impostos deduzidos do salário.
 
@@ -14,19 +14,69 @@ O objetivo do projeto é construir um sistema de folha de pagamento. O sistema c
  - Alguns empregados pertencem ao sindicato (para simplificar, só há um possível sindicato). O sindicato cobra uma taxa mensal do empregado e essa taxa pode variar entre empregados. A taxa sindical é deduzida do salário. Além do mais, o sindicato pode ocasionalmente cobrar taxas de serviços adicionais a um empregado. Tais taxas de serviço são submetidas pelo sindicato mensalmente e devem ser deduzidas do próximo contracheque do empregado. A identificação do empregado no sindicato não é a mesma da identificação no sistema de folha de pagamento.
  - A folha de pagamento é rodada todo dia e deve pagar os empregados cujos salários vencem naquele dia. O sistema receberá a data até a qual o pagamento deve ser feito e calculará o pagamento para cada empregado desde a última vez em que este foi pago.
 
- 
-| Função | Título | Breve Descrição |
-|--- |--- |--- |
-| 1 | Adição de um empregado | Um novo empregado é adicionado ao sistema. Os seguintes atributos são fornecidos:       nome, endereço, tipo (hourly, salaried, commissioned) e os atributos associados (salário horário, salário mensal, comissão). Um número de empregado (único) deve ser escolhido automaticamente pelo sistema. |
-| 2 | Remoção de um empregado | Um empregado é removido do sistema. |
-| 3 | Lançar um Cartão de Ponto | O sistema anotará a informação do cartão de ponto e a associará ao empregado correto. |
-| 4 | Lançar um Resultado Venda | O sistema anotará a informação do resultado da venda e a associará ao empregado correto. |
-| 5 | Lançar uma taxa de serviço | O sistema anotará a informação da taxa de serviço e a associará ao empregado correto. |
-| 6 | Alterar detalhes de um empregado | Os seguintes atributos de um empregado podem ser alterados: nome, endereço, tipo(hourly,salaried,commisioned), método de pagamento, se pertence ao sindicato ou não, identificação no sindicato, taxa sindical. |
-| 7 | Rodar a folha de pagamento para hoje | O sistema deve achar todos os empregados que devem ser pagos no dia indicado, deve calcular o valor do salário e deve providenciar o pagamento de acordo com o método escolhido pelo empregado. |
-| 8 | Undo/redo | Qualquer transação associada as funcionalidades 1 a 7 deve ser desfeita (undo) ou refeita (redo). |
-| 9 | Agenda de Pagamento | Cada empregado é pago de acordo com uma "agenda de pagamento". Empregados podem selecionar a agenda de pagamento que desejam. Por default, as agendas "semanalmente", "mensalmente" e "bi- semanalmente" são usadas, como explicado na descricao geral. Posteriormente, um empregado pode pedir para ser pago de acordo com qualquer uma dessas agendas. |
-| 10 | Criação de Novas Agendas de Pagamento |A direção da empresa pode criar uma nova agenda de pagamento e disponibilizá-la para os empregados escolherem, se assim desejarem. Uma agenda é especificada através de um string. Alguns exemplos mostram as possibilidades: "mensal 1": dia 1 de todo mês "mensal 7": dia 7 de todo mês "mensal $": último dia útil de todo mês "semanal 1 segunda": toda semana às segundas-feiras "semanal 1 sexta": toda semana às sextas-feiras "semanal 2 segunda": a cada 2 semanas às segundas-feiras. |
-|
+# Code Smells
 
+## Long Method
 
+- Em [EmployeeApp](payroll/src/app/EmployeeApp.java), métodos AddEmployee() e ChangeEmployee() muito extensos.
+-  Em [AuxApp](payroll/src/app/AuxApp.java), método ChangeSyndicalst() muito extenso.
+-  Em [PaymentApp](payroll/src/app/PaymentApp.java), método RunPayroll() muito extenso.
+-  Em [Employee](payroll/src/model/employee/Employee.java), método toString() com decisões lógicas para comportamento.
+-  Em [Syndicate](payroll/src/model/syndicate/Syndicate.java), método toString() com decisões lógicas para comportamento.
+
+## Generative Speculation
+
+- Métodos getters e setters de inúmeras classes inutilizados.
+
+## Long Parameter List
+
+- Longas chamadas de métodos nos construtores de [Employee](payroll/src/model/employee/Employee.java) e suas subclasses, [Hourly](payroll/src/model/employee/Hourly.java), [Salaried](payroll/src/model/employee/Salaried.java) e [Comissioned](payroll/src/model/employee/Commissioned.java).
+- Em [AuxApp](payroll/src/app/AuxApp.java), longo parâmetro no método AddEmployeeP().
+  
+## Duplicated Code
+
+- Em [PayrollApp](payroll/src/app/PayrollApp.java), método main com condicionais repetidas.
+- Em [PaymentApp](payroll/src/app/PaymentApp.java), método RunPayroll() com várias condicionais com o mesmo código.
+- Em [SaleReport](payroll/src/model/employee/SaleReport.java) e [ServiceTax](payroll/src/model/syndicate/ServiceTax.java), há a mesma estruturação de classe.
+- Em vários métodos, há a repetição de mensagem de leitura ou erro.
+
+## Data Class
+
+- No pacote payment, todas as classes só possuem o objetivo de armazenar os dados e os métodos getters, setters e toString().
+
+## Long Class
+
+- Em [AuxApp](payroll/src/app/AuxApp.java) e [EmployeeApp](payroll/src/app/EmployeeApp.java), mesmo com a tentativa de separação, há inúmeros métodos.
+	
+
+# Refactoried
+
+## Template Method
+
+A definição oficial do padrão Template Method é: “O Padrão Template Method define o esqueleto de um algoritmo dentro de um método, transferindo alguns de seus passos para as subclasses. O Template Method permite que as subclasses redefinam certos passos de um algoritmo sem alterar a estrutura do próprio algoritmo”.
+
+No caso do projeto, foi utilizado o Template Method em [EmployeeApp](payroll/src/app/EmployeeApp.java), no método [ChangeEmployee]() para resolver o code smells presente.
+
+## Extract Method
+
+Com o intuito de solucionar o code smells Duplicated Code, o Extract Method possui a função de separar as repetições em chamadas do método criado a partir dele e modularizar os métodos longos.
+
+No caso do projeto, foi utilizado o Extract Method em várias partes do projeto, como nas condicionais do [PaymentApp](payroll/src/app/PaymentApp.java) e nas mensagens de erro e de leitura, evitando a duplicação.
+
+## Interpreter Pattern
+
+Com o intuito de filtrar os tipos de empregados e checar se ele é um sindicalista ou não. No caso do projeto, foi criada uma classe [EmployeeLists](payroll/src/app/EmployeeLists.java) para fazer as filtragens e resolver o code smells de repetições.
+
+## Strategy Pattern
+
+Com o intuito de definir uma família de algoritmos, encapsular cada um, e fazê-los intercambiáveis, ele permite que algoritmos variem independentemente entre clientes que os utilizam.
+
+No caso do projeto, foi utilizado o Strategy Pattern para solucionar as repetições e melhorar as refatorações dos tipos de [PaymentSchedule](payroll/src/model/payment/PaymentSchedule.java), ao criar uma [interface](payroll/src/app/scheduleManager/ScheduleType.java) e as classes para cada schedule correspondente ([MonthlySchedule](payroll/src/app/scheduleManager/MonthlySchedule.java), [WeeklySchedule](payroll/src/app/scheduleManager/WeeklySchedule.java), [BiweeklySchedule](payroll/src/app/scheduleManager/BiweeklySchedule.java)).
+
+## Remoction Generative Speculation
+
+No caso do projeto, alguns construtores e getters e setters que não foram utilizados ou inutilizados durante o refatoramento foram excluidos.
+
+## Move Method
+
+No caso do projeto, alguns métodos foram movidos para classes mais próprias, de modo a melhorar a otimização do sistema.

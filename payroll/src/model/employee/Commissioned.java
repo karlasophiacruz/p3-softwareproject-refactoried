@@ -8,9 +8,10 @@ public class Commissioned extends Employee {
     private Double saleComission, totalSale;
     private List<SaleReport> salereportList = new ArrayList<>();
     
-    public Commissioned(String name, String adress, Syndicate unionist, int id, PayCheck payCheck){
-        super(name, adress, unionist, id, payCheck);
-        totalSale = 0.;
+    public Commissioned(String name, String adress, Syndicate unionist, int id, PayCheck payCheck, Double saleCommission){
+        super(name, adress, unionist, id, payCheck, false);
+        this.totalSale = 0.;
+        this.saleComission = saleCommission;
     }
 
     public Double getSaleComission() {
@@ -31,8 +32,10 @@ public class Commissioned extends Employee {
         return totalSale;
     }
     public void setTotalSale() {
-        for(int i = 0 ; i < getSalereportList().size() ; i++){
-            totalSale += getSalereportList().get(i).getSaleValue();
+        if(getSalereportList() != null){
+            for(int i = 0 ; i < getSalereportList().size() ; i++){
+                totalSale += getSalereportList().get(i).getSaleValue();
+            }
         }
     }
 

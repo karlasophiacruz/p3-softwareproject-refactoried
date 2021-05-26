@@ -18,6 +18,8 @@ public class PayrollApp {
         int option = -1;
         LocalTime now = LocalTime.now();
 
+        AuxFunctions.clearconsole();
+
         if(now.getHour() >= 0 && now.getHour() <= 12){
             System.out.println("Hey! Good Morning!");
         } else if(now.getHour() > 12 && now.getHour() < 18){
@@ -29,8 +31,6 @@ public class PayrollApp {
         System.out.println();
 
         while(option != 0){
-            System.out.println("\nWhat do you wanna do?");
-            System.out.println("(Please, choose a number)");
             System.out.println();
             System.out.println(" 1 - Play PayRoll's Today");
             System.out.println(" 2 - Add an Employee");
@@ -44,34 +44,51 @@ public class PayrollApp {
             System.out.println(" 10 - Show the Employee List");
             System.out.println(" 11 - Show the Unionist List");;
             System.out.println(" 0 - Exit PayRoll");
-            System.out.println();
+            System.out.println("\nWhat do you wanna do?");
 
-            option = Integer.parseInt(input.nextLine());
+            option = empApp.auxApp.auxFunctions.readBetween(input, "Chose the option: ", 0, 11);
+            AuxFunctions.clearconsole();
             
-            if(option == 1){
-                payApp.RunPayroll(input);
-            } else if(option == 2){
-                empApp.AddEmployee(input);
-            } else if(option == 3){
-               empApp.RemoveEmployee(input);
-            } else if(option == 4){
-                empApp.ChangeEmployee(input);
-            } else if(option == 5){
-                empApp.SetTimeCard(input);
-            } else if(option == 6){
-                empApp.SetSaleResult(input);
-            } else if(option == 7){
-                empApp.SetServiceTax(input);
-            } else if(option == 8){
-                payApp.ChangePaymentSchedule(input);
-            } else if(option == 9){
-                payApp.CreatePaymentSchedule(input);
-            } else if(option == 10){
-                payApp.auxApp.PrintEmployeeList(emploList);
-            } else if(option == 11){
-                payApp.auxApp.PrintSyndiList(syndiList);
+            switch (option) {
+                case 1:
+                    payApp.RunPayroll(input);
+                    break;
+                case 2:
+                    empApp.AddEmployee(input);
+                    break;
+                case 3:
+                    empApp.RemoveEmployee(input);
+                    break;
+                case 4:
+                    empApp.editEmp.ChangeEmployee(input);
+                    break;
+                case 5:
+                    empApp.SetTimeCard(input);
+                    break;
+                case 6:
+                    empApp.SetSaleResult(input);
+                    break;
+                case 7:
+                    empApp.SetServiceTax(input);
+                    break;
+                case 8:
+                    payApp.ChangePaymentSchedule(input);
+                    break;
+                case 9:
+                    payApp.CreatePaymentSchedule(input);
+                    break;
+                case 10:
+                    empApp.empList.PrintEmployeeList(emploList);
+                    break;
+                case 11:
+                    empApp.empList.PrintSyndiList();
+                    break;
+                default:
+                    break;
             }
         }
+        AuxFunctions.clearconsole();
         input.close();
+        System.out.println("See you later! Bye!");
     }
 }

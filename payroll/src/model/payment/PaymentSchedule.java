@@ -8,8 +8,8 @@ public class PaymentSchedule {
 
     public PaymentSchedule(){
         this.options.add("MONTLHY $");
-        this.options.add("WEEKLY 2 FRIDAY");
-        this.options.add("WEEKLY 1 FRIDAY");
+        this.options.add("BIWEEKLY FRIDAY");
+        this.options.add("WEEKLY FRIDAY");
     }
 
     public List<String> getOptions() {

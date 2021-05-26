@@ -78,17 +78,18 @@ public class PayCheck {
         this.paid = paid;
     }
 
+    public String printNetSalary() {
+        if(isPaid()){
+            return "    |   NetSalary = " + getNetSalary();
+        }
+        return "";
+    }
+
     @Override
     public String toString() {
-        if(isPaid() == false){
-            return "\nPAYMENT CHECK \n" +
-                    "\nGross salary = " + getGrossSalary() +
-                    "\nPayment Schedule = " + getPaySchedule() + getPayData() + getPayMethod() + "\n";
-        } else{
-            return "\nPAYMENT CHECK \n" +
-                    "Payment Day = " + getPaidDay() +
-                    "\nGross salary = " + getGrossSalary() + "  |   NetSalary = " + getNetSalary() +
-                    "\nPayment Schedule = " + getPaySchedule() + getPayData() + getPayMethod();
-        }
+        return "\nPAYMENT CHECK \n" +
+                "Payment Day = " + getPaidDay() +
+                "\nGross salary = " + getGrossSalary() + printNetSalary() +
+                "\nPayment Schedule = " + getPaySchedule() + getPayData() + getPayMethod();
     }
 }

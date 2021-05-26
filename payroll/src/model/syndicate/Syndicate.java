@@ -35,6 +35,7 @@ public class Syndicate {
     public void setUnion(boolean union) {
         this.union = union;
     }
+    
 
     public String unionist(){
         if(isUnion()){

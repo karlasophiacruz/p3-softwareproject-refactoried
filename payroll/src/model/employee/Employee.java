@@ -9,25 +9,7 @@ public abstract class Employee {
     private Syndicate unionist;
     private int id;
     private boolean removed;
-    private PayCheck payCheck;
-
-    public Employee(String name, String adress, Syndicate unionist, int id) {
-        this.name = name;
-        this.adress = adress;
-        this.unionist = unionist;
-        this.id = id;
-        this.removed = false;
-    }
-    
-    
-    public Employee(String name, String adress, Syndicate unionist, int id, PayCheck payCheck) {
-        this.name = name;
-        this.adress = adress;
-        this.unionist = unionist;
-        this.id = id;
-        this.removed = false;
-        this.payCheck = payCheck;
-    }
+    private PayCheck payCheck; 
 
     public Employee(String name, String adress, Syndicate unionist, int id, PayCheck payCheck, boolean removed) {
         this.name = name;
@@ -84,11 +66,11 @@ public abstract class Employee {
         this.payCheck = payCheck;
     }
 
-    public void printInfo(){
-        System.out.println("\n------------------EMPLOYEE----------------\n");
-        System.out.println("    Name = " + this.getName());
-        System.out.println("    Type of Employee = " + typeofEmployee());
-        System.out.println("    Id = " + this.getId());
+    public String printInfo(){
+        return "\n------------------EMPLOYEE----------------\n" +
+                "    Name = " + this.getName() +
+                "    Type of Employee = " + typeofEmployee() +
+                "    Id = " + this.getId();
     }
 
     public void restartEmployee(){
@@ -98,19 +80,13 @@ public abstract class Employee {
    
     @Override
     public String toString() {
+        System.out.println("------------------------------------------\n");
+        System.out.println(this.printInfo());
+
         if(this.getUnionist() != null){
-                return "------------------------------------------\n" +
-                    "------------------EMPLOYEE----------------\n" + 
-                    "Name = " + this.getName() + "\nAdress = " + this.getAdress()
-                    + "\nId = " + this.getId() + "\n" + "Type of Employee = " + typeofEmployee() + 
-                    "\n" + getUnionist() + "\n" + getPayCheck() +
-                    "\n-------------------------------------------\n";
+            System.out.println("\n" + getUnionist() + "\n");
         }
-        return "------------------------------------------\n" +
-             "------------------EMPLOYEE----------------\n" + 
-                "Name = " + this.getName() + "\nAdress = " + this.getAdress()
-                + "\nId = " + this.getId() + "\n" + "Type of Employee = " + typeofEmployee() + 
-                "\n" + getPayCheck() +
+        return  "\n" + getPayCheck() +
                 "\n-------------------------------------------\n";
     }
 }
