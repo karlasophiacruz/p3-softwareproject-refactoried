@@ -18,11 +18,11 @@ O objetivo do projeto é construir um sistema de folha de pagamento. O sistema c
 
 ## Long Method
 
-- Em [EmployeeApp](https://github.com/karlasophiacruz/p3-softwareproject/blob/main/payroll/src/app/EmployeeApp.java), métodos AddEmployee() e ChangeEmployee() muito extensos.
--  Em [AuxApp](payroll/src/app/AuxApp.java), método ChangeSyndicalst() muito extenso.
--  Em [PaymentApp](payroll/src/app/PaymentApp.java), método RunPayroll() muito extenso.
--  Em [Employee](payroll/src/model/employee/Employee.java), método toString() com decisões lógicas para comportamento.
--  Em [Syndicate](payroll/src/model/syndicate/Syndicate.java), método toString() com decisões lógicas para comportamento.
+- Em [EmployeeApp](https://github.com/karlasophiacruz/p3-softwareproject/blob/main/payroll/src/app/EmployeeApp.java), métodos [AddEmployee()](https://github.com/karlasophiacruz/p3-softwareproject/blob/e6abd88c28afc19bedeaebc2b9be3c6fe26367af/payroll/src/app/EmployeeApp.java#L30) e [ChangeEmployee()](https://github.com/karlasophiacruz/p3-softwareproject/blob/e6abd88c28afc19bedeaebc2b9be3c6fe26367af/payroll/src/app/EmployeeApp.java#L110) muito extensos.
+-  Em [AuxApp](https://github.com/karlasophiacruz/p3-softwareproject/blob/main/payroll/src/app/AuxApp.java), método [ChangeSyndicalst()](https://github.com/karlasophiacruz/p3-softwareproject/blob/e6abd88c28afc19bedeaebc2b9be3c6fe26367af/payroll/src/app/AuxApp.java#L318) muito extenso.
+-  Em [PaymentApp](https://github.com/karlasophiacruz/p3-softwareproject/blob/main/payroll/src/app/PaymentApp.java), método [RunPayroll()](https://github.com/karlasophiacruz/p3-softwareproject/blob/e6abd88c28afc19bedeaebc2b9be3c6fe26367af/payroll/src/app/PaymentApp.java#L93) muito extenso.
+-  Em [Employee](https://github.com/karlasophiacruz/p3-softwareproject/blob/main/payroll/src/model/employee/Employee.java), método toString() com decisões lógicas para comportamento.
+-  Em [Syndicate](https://github.com/karlasophiacruz/p3-softwareproject/blob/main/payroll/src/model/syndicate/Syndicate.java), método toString() com decisões lógicas para comportamento.
 
 ## Generative Speculation
 
@@ -31,12 +31,12 @@ O objetivo do projeto é construir um sistema de folha de pagamento. O sistema c
 ## Long Parameter List
 
 - Longas chamadas de métodos nos construtores de [Employee](payroll/src/model/employee/Employee.java) e suas subclasses, [Hourly](payroll/src/model/employee/Hourly.java), [Salaried](payroll/src/model/employee/Salaried.java) e [Comissioned](payroll/src/model/employee/Commissioned.java).
-- Em [AuxApp](payroll/src/app/AuxApp.java), longo parâmetro no método AddEmployeeP().
+- Em [AuxApp](payroll/src/app/AuxApp.java), longo parâmetro no método [AddEmployeeP()](https://github.com/karlasophiacruz/p3-softwareproject/blob/e6abd88c28afc19bedeaebc2b9be3c6fe26367af/payroll/src/app/AuxApp.java#L102).
   
 ## Duplicated Code
 
 - Em [PayrollApp](payroll/src/app/PayrollApp.java), método main com condicionais repetidas.
-- Em [PaymentApp](payroll/src/app/PaymentApp.java), método RunPayroll() com várias condicionais com o mesmo código.
+- Em [PaymentApp](payroll/src/app/PaymentApp.java), método [RunPayroll()](https://github.com/karlasophiacruz/p3-softwareproject/blob/e6abd88c28afc19bedeaebc2b9be3c6fe26367af/payroll/src/app/PaymentApp.java#L93) com várias condicionais com o mesmo código.
 - Em [SaleReport](payroll/src/model/employee/SaleReport.java) e [ServiceTax](payroll/src/model/syndicate/ServiceTax.java), há a mesma estruturação de classe.
 - Em vários métodos, há a repetição de mensagem de leitura ou erro.
 
@@ -55,7 +55,7 @@ O objetivo do projeto é construir um sistema de folha de pagamento. O sistema c
 
 A definição oficial do padrão Template Method é: “O Padrão Template Method define o esqueleto de um algoritmo dentro de um método, transferindo alguns de seus passos para as subclasses. O Template Method permite que as subclasses redefinam certos passos de um algoritmo sem alterar a estrutura do próprio algoritmo”.
 
-No caso do projeto, foi utilizado o Template Method em [EmployeeApp](payroll/src/app/EmployeeApp.java), no método [ChangeEmployee]() para resolver o code smells presente.
+No caso do projeto, foi utilizado o Template Method em [EmployeeApp](payroll/src/app/EmployeeApp.java), no método [ChangeEmployee](https://github.com/karlasophiacruz/p3-softwareproject/blob/e6abd88c28afc19bedeaebc2b9be3c6fe26367af/payroll/src/app/EmployeeApp.java#L110) para resolver o code smells presente.
 
 ## Extract Method
 
